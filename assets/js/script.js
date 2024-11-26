@@ -1,59 +1,61 @@
 console.log("Connected!");
 
-// 
-
+// Ensure the DOM content is loaded before running the script
 document.addEventListener("DOMContentLoaded", function() {
-    let buttons = document-getElementsByTagName("button");
+    let buttons = document.getElementsByTagName("button");
 
-    for (let buttons of buttons) {
+    for (let button of buttons) {  // Correct variable in the loop
         button.addEventListener("click", function() {
-            if (thiss.getAttribute("data-type") === "submit") {
-                alert("You clilcked Submut");
+            if (this.getAttribute("data-type") === "submit") {  // Corrected 'thiss' typo
+                alert("You clicked Submit");  // Corrected typo "Submut" to "Submit"
             } else {
-                let game-type = this.getAttribute("data-type");
-                alert(`you clicked ${gameType}`);
-            }
-            }};
-
+                let gameType = this.getAttribute("data-type");  // Corrected variable declaration
+                alert(`You clicked ${gameType}`);
             }
         });
+    }
+});
 
+// Your function declarations below 
 
-
+/**
+ * creates the random numbers between 1-25 
+ * the main game loop...
+ * 
+ */
 function runGame() {
-
+    // Code to run the game, 2 numbers between 1-25
+    let num1 = math.floor(Math.random() * 25) + 1;
+    let num2 = math.floor(Math.random() * 25) + 1;
 }
 
 function checkAnswer() {
-
+    // Code to check the answer
 }
 
 function calculateCorrectAnswer() {
-
+    // Code to calculate the correct answer
 }
 
-// literally the score
-
+// Update the score
 function incrementScore() {
-
+    // Code to increment score
 }
 
-// num of wrong tries
-
+// Number of wrong tries
 function incrementWrongAnswer() {
-
+    // Code to increment wrong answers
 }
 
-// questions:
-
+// Questions functions:
 function displayAdditionQuestion() {
-
+    // Code to display addition question
 }
 
 function displaySubtractQuestion() {
-
+    // Code to display subtraction question
 }
 
 function displayMultiplyQuestion() {
-    
+    // Code to display multiplication question
 }
