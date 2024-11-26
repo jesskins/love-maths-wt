@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
+    runGame("addition");
 });
 
 // Your function declarations below 
@@ -23,10 +24,19 @@ document.addEventListener("DOMContentLoaded", function() {
  * the main game loop...
  * 
  */
-function runGame() {
+function runGame(gameType) {
     // Code to run the game, 2 numbers between 1-25
     let num1 = math.floor(Math.random() * 25) + 1;
     let num2 = math.floor(Math.random() * 25) + 1;
+
+    if (gameType === "addition") {
+        displayAdditionQuestion (num1, num2);
+    } else {
+        alert(`unknown game type: ${gameType}`);
+        throw `unknown game type: ${gameType}. Aborting!`;
+    
+    }
+    }
 }
 
 function checkAnswer() {
@@ -48,7 +58,12 @@ function incrementWrongAnswer() {
 }
 
 // Questions functions:
-function displayAdditionQuestion() {
+function displayAdditionQuestion(operand1, operand2) {
+    document.getElementById("operand1").textContent = operand1; // i.e. get number 1, display nunber 1
+    document.getElementById("operand2").textContent = operand2;
+    document.getElementById("operator").textContent = "+";
+
+
     // Code to display addition question
 }
 
