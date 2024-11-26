@@ -4,25 +4,24 @@ document.addEventListener("DOMContentLoaded", function() {
 
     for (let button of buttons) {
         button.addEventListener("click", function() {
-            if (this.getAttribute("data-type") === "submit") {
+            let gameType = this.getAttribute("data-type");
+            console.log("Button clicked, game type:", gameType);  // Debugging log
+            if (gameType === "submit") {
                 checkAnswer();
             } else {
-                let gameType = this.getAttribute("data-type");
                 runGame(gameType);
             }
         });
     }
 
-// to "submit" with the enter button (i.e. event listener)
-
-document.getElementById("answer-box").addEventListener("keydown", function(event) {
-    if (event.key === "Enter") {
-        checkAnswer();
-    }
-})
+    // Submit with the Enter button (i.e. event listener)
+    document.getElementById("answer-box").addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            checkAnswer();
+        }
+    });
 
     runGame("addition");
-
 });
 
 /**
@@ -30,25 +29,17 @@ document.getElementById("answer-box").addEventListener("keydown", function(event
  * and after the user's answer has been processed
  */
 function runGame(gameType) {
-
-   
-    // blanks out game area after each answer submission
-
+    console.log("Running game type:", gameType);  // Debugging log
+    // Clear the answer box after each answer submission
     document.getElementById("answer-box").value = "";
-    
-    
-    // put cursor in the right place 
-
+    // Put cursor in the answer box
     document.getElementById("answer-box").focus();
 
-
-
-    // Creates two random numbers between 1 and 25
     let num1 = Math.floor(Math.random() * 25) + 1;
     let num2 = Math.floor(Math.random() * 25) + 1;
 
-
-    if (gameType === "divide") { num2 = generateFactor(num1);
+    if (gameType === "divide") {
+        num2 = generateFactor(num1); // Ensure num2 is a factor of num1 for division
     }
 
     if (gameType === "addition") {
@@ -63,6 +54,20 @@ function runGame(gameType) {
         alert(`Unknown game type: ${gameType}`);
         throw `Unknown game type: ${gameType}. Aborting!`;
     }
+}
+
+/**
+ * Generates a random factor of the given number
+ */
+function generateFactor(num) {
+    let factors = [];
+    for (let i = 1; i <= num; i++) {
+        if (num % i === 0) {
+            factors.push(i);
+        }
+    }
+    // Return a random factor from the list of factors
+    return factors[Math.floor(Math.random() * factors.length)];
 }
 
 /**
@@ -143,7 +148,7 @@ function displayMultiplyQuestion(operand1, operand2) {
 }
 
 function displayDivideQuestion(operand1, operand2) {
-    document.getElementById('operand1').textContent = operand1 > operand2 ? operand1 : operand2;
-    document.getElementById('operand2').textContent = operand1 > operand2 ? operand2 : operand1;
+    document.getElementById('operand1').textContent = operand1;
+    document.getElementById('operand2').textContent = operand2;
     document.getElementById('operator').textContent = "/";
 }
