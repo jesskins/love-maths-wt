@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
 // to "submit" with the enter button (i.e. event listener)
 
 document.getElementById("answer-box").addEventListener("keydown", function(event) {
-    if (event.key === "enter") {
+    if (event.key === "Enter") {
         checkAnswer();
     }
 })
@@ -31,9 +31,12 @@ document.getElementById("answer-box").addEventListener("keydown", function(event
  */
 function runGame(gameType) {
 
-    // blanks out game area after each answer
+   
+    // blanks out game area after each answer submission
 
     document.getElementById("answer-box").value = "";
+    
+    
     // put cursor in the right place 
 
     document.getElementById("answer-box").focus();
@@ -44,12 +47,18 @@ function runGame(gameType) {
     let num1 = Math.floor(Math.random() * 25) + 1;
     let num2 = Math.floor(Math.random() * 25) + 1;
 
+
+    if (gameType === "divide") { num2 = generateFactor(num1);
+    }
+
     if (gameType === "addition") {
         displayAdditionQuestion(num1, num2);
     } else if (gameType === "multiply") {
         displayMultiplyQuestion(num1, num2);
     } else if (gameType === "subtract") {
         displaySubtractQuestion(num1, num2);
+    } else if (gameType === "divide") {
+        displayDivideQuestion(num1, num2);
     } else {
         alert(`Unknown game type: ${gameType}`);
         throw `Unknown game type: ${gameType}. Aborting!`;
@@ -66,10 +75,10 @@ function checkAnswer() {
     let isCorrect = userAnswer === calculatedAnswer[0];
 
     if (isCorrect) {
-        alert("Hey! You got it right! :D");
+        alert("That's the right answer, well done!");
         incrementScore();
     } else {
-        alert(`Awwww.... you answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}!`);
+        alert(`Oh dear...! You answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}.`);
         incrementWrongAnswer();
     }
 
@@ -91,6 +100,8 @@ function calculateCorrectAnswer() {
         return [operand1 * operand2, "multiply"];
     } else if (operator === "-") {
         return [operand1 - operand2, "subtract"];
+    } else if (operator === "/") {
+        return [operand1 / operand2, "divide"];
     } else {
         alert(`Unimplemented operator ${operator}`);
         throw `Unimplemented operator ${operator}. Aborting!`;
@@ -129,4 +140,10 @@ function displayMultiplyQuestion(operand1, operand2) {
     document.getElementById('operand1').textContent = operand1;
     document.getElementById('operand2').textContent = operand2;
     document.getElementById('operator').textContent = "x";
+}
+
+function displayDivideQuestion(operand1, operand2) {
+    document.getElementById('operand1').textContent = operand1 > operand2 ? operand1 : operand2;
+    document.getElementById('operand2').textContent = operand1 > operand2 ? operand2 : operand1;
+    document.getElementById('operator').textContent = "/";
 }
